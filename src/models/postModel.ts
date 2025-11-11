@@ -4,6 +4,7 @@ const postSchema = new mongoose.Schema({
   content: { type: String},
   imageUrl: { type: String },
   likes: { type: Number, default: 0 },
+  cloudinaryId: { type: String },
   comments: [{ type: String }],
   author : { type: mongoose.Schema.Types.ObjectId, ref: "Users", required: true },
 
