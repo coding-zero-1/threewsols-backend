@@ -33,8 +33,10 @@ export const postUploadController = async (req: Request, res: Response) => {
   try {
     const { content } = req.body; // Extract content and author from the request body
     // @ts-ignore
-    const userInDb = await UserModel.findById(req.user.email);
-    const name = userInDb ? userInDb.name : "Unknown";
+    const userInDb = await UserModel.findOne({email: req.user.email});
+    if(!userInDb){
+      return res.status(404).json({ message: "User not found" });
+    }
     let imageUrl = null;
     let cloudinaryId = null;
 
@@ -50,7 +52,7 @@ export const postUploadController = async (req: Request, res: Response) => {
       content,
       imageUrl,
       cloudinaryId,
-      author: name,
+      author: userInDb?._id,
     });
 
     // Respond with a success message and the created post

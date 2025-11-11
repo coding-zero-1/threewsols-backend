@@ -18,7 +18,7 @@ export const signUpController =  async (req:Request, res:Response) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   // Save the user to the database
-  await UserModel.create({ username, email, password: hashedPassword });
+  await UserModel.create({ name:username, email, password: hashedPassword });
 
   return res.status(201).json({ message: "User signed up successfully" });
 }
